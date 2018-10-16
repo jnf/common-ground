@@ -1,5 +1,60 @@
+// imports!
+@import "normalize.css";
+
+// variables!
 $black: #333;
+$blue: rgb(130, 224, 255);
+$white: #eee;
+
+// global styles!
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html {
+  color: $black;
+  font: 18px/1.2 "Helvetica Neue", Helvetica, Arial;
+}
 
 body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+// component styles!
+#talker {
   background: $black;
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+  width: 100vw;
+
+  input {
+    border: 0;
+    padding: 0.5rem;
+    flex: 1;
+  }
+
+  button {
+    background: $blue;
+    border: none;
+    padding: 0.5rem 1rem;
+  }
+}
+
+#messages {
+  flex: 1;
+  list-style-type: none;
+  overflow: scroll;
+
+  li {
+    padding: 0.5rem 1rem;
+
+    &.system-message {
+      font-style: italic;
+    }
+
+    &:nth-child(odd) {
+      background: $black;
+      color: $white;
+    }
+  }
 }
