@@ -1,15 +1,25 @@
-const app = require("express")()
-const http = require("http").Server(app)
-const io = require("socket.io")(http)
-
+import Express from "express"
 import { v1 as uuid } from "uuid"
 import path from "path"
 
-// inject webpack middleware
+import sassMiddleware from "node-sass-middleware"
 import webpackMiddleware from "webpack-dev-middleware"
 import webpack from "webpack"
-import config from "../webpack.config.dev"
-app.use(webpackMiddleware(webpack(config)))
+import webpackConfig from "../webpack.config.dev"
+
+const app = Express()
+const http = require("http").Server(app)
+const io = require("socket.io")(http)
+
+// inject sass middleware
+app.use(sassMiddleware({
+  outputStyle: "compressed",
+  src: path.join(__dirname, "../client")
+}))
+app.use("/public", Express.static(path.join(__dirname, "../client/public")))
+
+// inject webpack middleware
+app.use(webpackMiddleware(webpack(webpackConfig)))
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/index.html"))
