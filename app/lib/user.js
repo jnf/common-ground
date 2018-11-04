@@ -1,11 +1,9 @@
 const map = new WeakMap()
-const state = {}
 
 export default class User {
   constructor (id) {
-    map.set(state, { id })
+    map.set(this, { id })
   }
 
-  get state () { return { ...map.get(state) } }
-  get id () { return this.state.id }
+  get id () { return map.get(this).id }
 }
