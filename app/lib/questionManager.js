@@ -20,7 +20,7 @@ const Questions = {
 const map = new WeakMap()
 export default class QuestionManager {
   constructor (questions=Questions) {
-    map.set(this, { active: 0, questions })
+    map.set(this, { active: "q1", questions })
   }
 
   activate (id) {
