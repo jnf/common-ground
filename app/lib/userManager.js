@@ -23,12 +23,4 @@ export default class UserManager {
       map.set(this, { ...state, users })
     }
   }
-
-  update (data) {
-    const newState = { ...map.get(state), [data] }
-    map.set(state, newState)
-    console.log("update", newState)
-  }
-
-  get users () { return { ...map.get(state).users } }
 }
