@@ -2,8 +2,6 @@ import { v1 as uuid } from "uuid"
 import StorageManager from "./storageManager"
 
 const map = new WeakMap()
-const state = {}
-
 export default class User {
   constructor () {
     const storageManager = new StorageManager()
@@ -11,8 +9,8 @@ export default class User {
       ? storageManager.get("id")
       : storageManager.set("id", uuid())
 
-    map.set(state, { id })
+    map.set(this, { id })
   }
 
-  get id () { return map.get(state).id }
+  get id () { return map.get(this).id }
 }

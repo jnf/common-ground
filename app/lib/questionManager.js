@@ -18,17 +18,17 @@ const Questions = {
 }
 
 const map = new WeakMap()
-const state = {}
 export default class QuestionManager {
   constructor (questions=Questions) {
-    map.set(state, { active: 0, questions })
+    map.set(this, { active: 0, questions })
   }
 
   activate (id) {
-    map.set(state, { ...this.state, active: id })
+    const state = map.get(this)
+    map.set(this, { ...state, active: id })
   }
 
-  get state () { return { ...map.get(state) } }
-  get activeQuestion () { return this.state.questions[this.state.active] }
+  get active () { return map.get(this).active }
+  get activeQuestion () { return map.get(this).questions[this.active] }
   get activeAnswers () { return this.activeQuestion.answers }
 }

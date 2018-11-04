@@ -1,12 +1,10 @@
 import * as io from "socket.io-client"
 
-const state = {}
 const map = new WeakMap()
-
 class SocketManager {
   constructor (callbacks={}) {
     // establish initial state
-    map.set(state, { callbacks, socket: io() })
+    map.set(this, { callbacks, socket: io() })
 
     // set up listeners for provided callbacks
     Object.keys(callbacks).forEach(key => this.socket.on(key, this.callbacks[key]))
@@ -17,8 +15,8 @@ class SocketManager {
     this.socket.emit(message, data)
   }
 
-  get callbacks () { return map.get(state).callbacks }
-  get socket () { return map.get(state).socket }
+  get callbacks () { return map.get(this).callbacks }
+  get socket () { return map.get(this).socket }
 }
 
 export default SocketManager
