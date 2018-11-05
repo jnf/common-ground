@@ -51,9 +51,9 @@ io.on("connection", (socket) => {
     // this is where we create a User instance
     const user = userManager.register(id)
 
-    socket.emit("app:appMessage", {
+    socket.emit("app::appMessage", {
       message: "registration success",
-      data: { user }
+      data: { id: user.id }
     })
 
     // do we need to tell anyone that registration happened?
