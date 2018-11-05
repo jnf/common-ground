@@ -41,8 +41,10 @@ io.on("connection", (socket) => {
   socket.emit('app::register')
 
   socket.on("disconnect", (data) => {
-    console.log("disconnected", data)
-    io.emit("chat:client:disconnected", data)
+    // tell the UserManager that the person disconnected
+
+    // do we need to tell anyone else that person disconnected?
+    // socket.broadcast.emit("app::clientDisconncted", {})
   })
 
   socket.on("client::register", ({id}) => {
