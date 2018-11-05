@@ -7,7 +7,7 @@ class SocketManager {
     map.set(this, { callbacks, socket: io() })
 
     // set up listeners for provided callbacks
-    Object.keys(callbacks).forEach(key => this.socket.on(key, this.callbacks[key]))
+    Object.entries(callbacks).forEach(([key, callback]) => this.socket.on(key, callback))
   }
 
   // use the open connection to send a message to the server
