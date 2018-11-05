@@ -11,5 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
       //   socketManager.emit("chat:client:register", {id: user.id})
       // }
   // }
-  const socketManager = new SocketManager({})
+  const socketManager = new SocketManager({
+    "app::register": () => {
+      console.log(`registering with ${user.id}!`)
+      socketManager.emit("client::register", { id: user.id })
+    },
+
+    "app:appMessage": ({message, data}) => {
+      console.log(message, data)
+    }
+  })
 })
