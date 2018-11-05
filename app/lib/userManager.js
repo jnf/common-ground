@@ -18,7 +18,7 @@ export default class UserManager {
     const state = map.get(this)
     const users = { ...state.users }
 
-    if (users[clientId) {
+    if (users[clientId]) {
       delete users[clientId]
       map.set(this, { ...state, users })
     }
