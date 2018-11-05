@@ -1,4 +1,5 @@
 import SocketManager from "./lib/socketManager"
+import AppMessager from "./lib/utilities/appMessager"
 import User from "./lib/user"
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,13 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // }
   // }
   const socketManager = new SocketManager({
+    "app::appMessage": (data) => AppMessager(appMessages, data),
     "app::register": () => {
       console.log(`registering with ${user.id}!`)
       socketManager.emit("client::register", { id: user.id })
-    },
-
-    "app:appMessage": ({message, data}) => {
-      console.log(message, data)
     }
   })
+
 })
