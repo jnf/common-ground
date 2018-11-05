@@ -46,10 +46,6 @@ io.on("connection", (socket) => {
   socket.on("chat:client:register", ({id}) => {
     io.emit("chat:user:connected", id)
   })
-
-  socket.on("chat:message:send", ({id, message}) => {
-    io.emit("chat:message:receive", `${id}: ${message}`)
-  })
 })
 
 // shh... I'm tryna listen
