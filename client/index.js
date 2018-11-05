@@ -3,9 +3,6 @@ import User from "./lib/user"
 
 document.addEventListener("DOMContentLoaded", () => {
   const user = new User()
-  const talker = document.getElementById("talker")
-  const messages = document.getElementById("messages")
-  const message = document.getElementById("message")
   const socketManager = new SocketManager({
     "chat:app:register": () => {
       socketManager.emit("chat:client:register", {id: user.id})
