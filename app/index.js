@@ -56,6 +56,4 @@ io.on("connection", (socket) => {
 })
 
 // shh... I'm tryna listen
-http.listen(3000, () => {
-  console.log("listening on *:3000")
-})
+http.listen(3000, () => console.log("Shh! I'm listening on *:3000"))
