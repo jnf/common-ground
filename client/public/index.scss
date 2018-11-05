@@ -20,41 +20,10 @@ body {
 }
 
 // component styles!
-#talker {
-  background: $black;
-  display: flex;
-  flex-direction: row;
-  padding: 0.5rem;
-  width: 100vw;
+#app-messages {
+  border: 1px solid $black;
 
-  input {
-    border: 0;
-    padding: 0.5rem;
-    flex: 1;
-  }
-
-  button {
-    background: $blue;
-    border: none;
-    padding: 0.5rem 1rem;
-  }
-}
-
-#messages {
-  flex: 1;
-  list-style-type: none;
-  overflow: scroll;
-
-  li {
-    padding: 0.5rem 1rem;
-
-    &.system-message {
-      font-style: italic;
-    }
-
-    &:nth-child(odd) {
-      background: $black;
-      color: $white;
-    }
+  .message {
+    padding: 0.25rem;
   }
 }
