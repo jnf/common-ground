@@ -34,17 +34,22 @@ app.use(webpackMiddleware(webpack(webpackConfig)))
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../client/index.html")))
 
 // invoke socket handler
+// messages FROM the client TO the app use the "client" namespace ("client::register")
+// messages FROM the app TO the client use the "app" namespace ("app::ready")
 io.on("connection", (socket) => {
   // tell client we are connected; this should trigger a register event
-  socket.emit('chat:app:register')
+  socket.emit('app::register')
 
   socket.on("disconnect", (data) => {
     console.log("disconnected", data)
     io.emit("chat:client:disconnected", data)
   })
 
-  socket.on("chat:client:register", ({id}) => {
-    io.emit("chat:user:connected", id)
+  socket.on("client::register", ({id}) => {
+    // this is where we create a User instance
+
+    // do we need to tell anyone that registration happened?
+    // io.emit("app::clientRegistered", {})
   })
 })
 
