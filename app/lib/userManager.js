@@ -8,11 +8,12 @@ export default class UserManager {
 
   register (clientId) {
     const state = map.get(this)
-    if (state.users[clientId]) return // they're already registered
+    const user = state.users[clientId] || new User(clientId)
 
-    const user = new User(clientId)
-    const users = { ...state.users, [clientId]: user }
-    map.set(this, { ...state, users })
+    if (!state.users[clientId]) { // they haven't registered before!
+      const users = { ...state.users, [clientId]: user }
+      map.set(this, { ...state, users })
+    }
 
     return user
   }
