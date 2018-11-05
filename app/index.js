@@ -9,7 +9,7 @@ import webpackConfig from "../webpack.config.dev"
 
 // who manages the managers?
 // import QuestionManager from "lib/questionManager"
-// import UserManager from "lib/userManager"
+import UserManager from "./lib/userManager"
 
 // can http pls
 const app = Express()
@@ -28,7 +28,7 @@ app.use(webpackMiddleware(webpack(webpackConfig)))
 
 // managers gonna manage
 // const questionManager = new QuestionManager
-// const userManager = new UserManager
+const userManager = new UserManager
 
 // serve the landing page for participants
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../client/index.html")))
@@ -49,6 +49,12 @@ io.on("connection", (socket) => {
 
   socket.on("client::register", ({id}) => {
     // this is where we create a User instance
+    const user = userManager.register(id)
+
+    socket.emit("app:appMessage", {
+      message: "registration success",
+      data: { user }
+    })
 
     // do we need to tell anyone that registration happened?
     // io.emit("app::clientRegistered", {})
