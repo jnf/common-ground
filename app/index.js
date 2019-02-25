@@ -50,7 +50,7 @@ io.on("connection", (socket) => {
     // socket.broadcast.emit("app::clientDisconncted", {})
   })
 
-  socket.on("client::register", ({id}) => {
+  socket.on("client::register", ({ id }) => {
     // this is where we create a User instance
     const user = userManager.register(id)
 
@@ -61,6 +61,10 @@ io.on("connection", (socket) => {
 
     // do we need to tell anyone that registration happened?
     // io.emit("app::clientRegistered", {})
+  })
+
+  socket.on("control::register", ({ id }) => {
+    console.log("incoming controller", id)
   })
 })
 
