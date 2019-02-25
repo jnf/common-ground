@@ -4,13 +4,14 @@ import path from "path"
 export default {
   devtool: "inline-source-map",
   mode: "development",
-  entry: [
-    path.resolve(__dirname, "client/index.js")
-  ],
+  entry: {
+    index: [path.resolve(__dirname, "client/index.js")],
+    control: [path.resolve(__dirname, "client/control.js")]
+  },
 
   output: {
     path: path.resolve(__dirname, "client"),
     publicPath: "/",
-    filename: "bundle.dev.js"
+    filename: "[name].js"
   }
 }

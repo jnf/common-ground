@@ -24,7 +24,7 @@ app.use(sassMiddleware({
 app.use("/public", Express.static(path.join(__dirname, "../client/public")))
 
 // inject webpack middleware
-app.use(webpackMiddleware(webpack(webpackConfig)))
+app.use(webpackMiddleware(webpack(webpackConfig), { publicPath: "/" }))
 
 // managers gonna manage
 // const questionManager = new QuestionManager
