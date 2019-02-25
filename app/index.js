@@ -33,6 +33,9 @@ const userManager = new UserManager
 // serve the landing page for participants
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../client/index.html")))
 
+// serve a control page for presenter(s)
+app.get("/control", (req, res) => res.sendFile(path.join(__dirname, "../client/control.html")))
+
 // invoke socket handler
 // messages FROM the client TO the app use the "client" namespace ("client::register")
 // messages FROM the app TO the client use the "app" namespace ("app::ready")
