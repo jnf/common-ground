@@ -29,6 +29,7 @@ app.use(webpackMiddleware(webpack(webpackConfig), { publicPath: "/" }))
 // managers gonna manage
 // const questionManager = new QuestionManager
 const userManager = new UserManager
+const controllerManager = new UserManager
 
 // serve the landing page for participants
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../client/index.html")))
@@ -65,6 +66,11 @@ io.on("connection", (socket) => {
 
   socket.on("control::register", ({ id }) => {
     console.log("incoming controller", id)
+    const controller = controllerManager.register(id)
+    socket.emit("app::controllerMessage", {
+      message: "registration success",
+      data: { id: controller.id }
+    })
   })
 })
 

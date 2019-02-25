@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const controller = new User({ control: true })
 
   const socketManager = new SocketManager({
+    "app::controllerMessage": data => console.log(data),
     "app::register": () => {
       console.log(`registering controller with ${controller.id}!`)
       socketManager.emit("control::register", { id: controller.id })
