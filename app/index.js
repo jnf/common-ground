@@ -40,7 +40,8 @@ const controllerManager = new UserManager()
 
 // handlers gotta handle (within their namespace)
 const namespaces = {
-  control: new ControllerHandler({ controllerManager })
+  control: new ControllerHandler({ controllerManager }),
+  client: new ClientHandler({ userManager })
 }
 
 // serve the landing page for participants
@@ -73,19 +74,6 @@ io.on("connection", (socket) => {
 
     // do we need to tell anyone else that person disconnected?
     // socket.broadcast.emit("app::clientDisconncted", {})
-  })
-
-  socket.on("client::register", ({ id }) => {
-    // this is where we create a User instance
-    const user = userManager.register(id)
-
-    socket.emit("app::appMessage", {
-      message: "registration success",
-      data: { id: user.id }
-    })
-
-    // do we need to tell anyone that registration happened?
-    // io.emit("app::clientRegistered", {})
   })
 })
 
