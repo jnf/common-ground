@@ -11,6 +11,12 @@ import webpackConfig from "../webpack.config.dev"
 // import QuestionManager from "lib/questionManager"
 import UserManager from "./lib/userManager"
 
+// also who, uh, handles the handlers?
+import ControllerHandler from "./lib/socketHandlers/controller"
+
+// sometimes things go wrong
+import { BWOKEN } from "./lib/bwoken"
+
 // can http pls
 const app = Express()
 const http = require("http").Server(app)
@@ -28,8 +34,13 @@ app.use(webpackMiddleware(webpack(webpackConfig), { publicPath: "/" }))
 
 // managers gonna manage
 // const questionManager = new QuestionManager
-const userManager = new UserManager
-const controllerManager = new UserManager
+const userManager = new UserManager()
+const controllerManager = new UserManager()
+
+// handlers gotta handle (within their namespace)
+const namespaces = {
+  control: new ControllerHandler({ controllerManager })
+}
 
 // serve the landing page for participants
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../client/index.html")))
@@ -43,6 +54,18 @@ app.get("/control", (req, res) => res.sendFile(path.join(__dirname, "../client/c
 io.on("connection", (socket) => {
   // tell client we are connected; this should trigger a register event
   socket.emit('app::register')
+
+  socket.on("message", (clientMessage, clientData) => {
+    const [namespace, method] = clientMessage.split("::")
+    try {
+      const handler = namespaces[namespace]
+      const { result, payload } = handler.on(method, clientData)
+      socket.send(result, payload)
+    } catch (error) {
+      const { result, payload } = BWOKEN(namespace, method, error)
+      socket.send(result, payload)
+    }
+  })
 
   socket.on("disconnect", (data) => {
     // tell the UserManager that the person disconnected
@@ -62,15 +85,6 @@ io.on("connection", (socket) => {
 
     // do we need to tell anyone that registration happened?
     // io.emit("app::clientRegistered", {})
-  })
-
-  socket.on("control::register", ({ id }) => {
-    console.log("incoming controller", id)
-    const controller = controllerManager.register(id)
-    socket.emit("app::controllerMessage", {
-      message: "registration success",
-      data: { id: controller.id }
-    })
   })
 })
 
