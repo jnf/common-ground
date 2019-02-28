@@ -51,8 +51,6 @@ app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../client/index.ht
 app.get("/control", (req, res) => res.sendFile(path.join(__dirname, "../client/control.html")))
 
 // invoke socket handler
-// messages FROM the client TO the app use the "client" namespace ("client::register")
-// messages FROM the app TO the client use the "app" namespace ("app::ready")
 io.on("connection", (socket) => {
   // tell client we are connected; this should trigger a register event
   socket.emit('app::register')
@@ -67,13 +65,6 @@ io.on("connection", (socket) => {
       const { result, payload } = BWOKEN(namespace, method, error)
       socket.send(result, payload)
     }
-  })
-
-  socket.on("disconnect", (data) => {
-    // tell the UserManager that the person disconnected
-
-    // do we need to tell anyone else that person disconnected?
-    // socket.broadcast.emit("app::clientDisconncted", {})
   })
 })
 
