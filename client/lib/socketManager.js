@@ -15,6 +15,10 @@ class SocketManager {
     this.socket.emit(message, data)
   }
 
+  send (message, data={}) {
+    this.socket.send(message, data)
+  }
+
   get callbacks () { return map.get(this).callbacks }
   get socket () { return map.get(this).socket }
 }
