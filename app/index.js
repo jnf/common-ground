@@ -13,6 +13,7 @@ import UserManager from "./lib/userManager"
 
 // also who, uh, handles the handlers?
 import ControllerHandler from "./lib/socketHandlers/controller"
+import ClientHandler from "./lib/socketHandlers/client"
 
 // sometimes things go wrong
 import { BWOKEN } from "./lib/bwoken"
