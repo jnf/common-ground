@@ -6,9 +6,9 @@ export default class UserManager {
     map.set(this, { users: {} })
   }
 
-  register (clientId) {
+  register (clientId, socket) {
     const state = map.get(this)
-    const user = state.users[clientId] || new User(clientId)
+    const user = state.users[clientId] || new User(clientId, socket)
 
     if (!state.users[clientId]) { // they haven't registered before!
       const users = { ...state.users, [clientId]: user }
