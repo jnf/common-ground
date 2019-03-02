@@ -18,8 +18,8 @@ const message_from = ({message="New app message!", data={}}) => {
   return div
 }
 
-const AppMessager = (element, data) => {
-  element.appendChild(message_from(data))
+const AppMessager = (element, payload) => {
+  element.appendChild(message_from(payload))
 }
 
 export default AppMessager
