@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
     const [namespace, method] = clientMessage.split("::")
     try {
       const handler = namespaces[namespace]
-      const { result, payload } = handler.on(method, clientData)
+      const { result, payload } = handler.on(method, clientData, socket)
       socket.send(result, payload)
     } catch (error) {
       const { result, payload } = BWOKEN(namespace, method, error)

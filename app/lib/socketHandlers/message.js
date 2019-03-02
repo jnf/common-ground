@@ -6,11 +6,11 @@ class MessageHandler {
     map.set(this, { ...concerns }) // create an initial state
   }
 
-  on (message, payload={}) {
+  on (message, payload={}, socket={}) {
     console.log(`received controller ${message} with payload ${payload}.`)
     if (!this[message]) return MISSING_METHOD(message, "controller")
     try {
-      return this[message](payload)
+      return this[message](payload, socket)
     } catch (error) {
       return BWOKEN("controller", message, error)
     }
