@@ -18,8 +18,8 @@ const message_from = ({ ok, message, data }) => {
   return div
 }
 
-const AppMessager = (element, payload) => {
+const appMessager = (element, payload) => {
   element.appendChild(message_from(payload))
 }
 
-export default AppMessager
+export default appMessager
