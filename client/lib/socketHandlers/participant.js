@@ -20,7 +20,7 @@ class ParticipantHandler extends SocketManager {
       data: {}
     })
 
-    this.send("client::register", { id: user.id })
+    this.send("participant::register", { id: user.id })
   }
 
   appMessage (data) {
