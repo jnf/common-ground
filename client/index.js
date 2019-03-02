@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const user = new User()
   const appMessages = document.getElementById("app-messages")
   const socketManager = new SocketManager({
-    "app::appMessage": (data) => AppMessager(appMessages, data),
+    "message": (message, data) => AppMessager(appMessages, data),
     "app::register": () => {
       console.log(`registering with ${user.id}!`)
-      socketManager.emit("client::register", { id: user.id })
+      socketManager.send("client::register", { id: user.id })
     }
   })
 
