@@ -53,7 +53,7 @@ app.get("/control", (req, res) => res.sendFile(path.join(__dirname, "../client/c
 // invoke socket handler
 io.on("connection", (socket) => {
   // tell client we are connected; this should trigger a register event
-  socket.emit('app::register')
+  socket.send('app::register')
 
   socket.on("message", (clientMessage, clientData) => {
     const [namespace, method] = clientMessage.split("::")
