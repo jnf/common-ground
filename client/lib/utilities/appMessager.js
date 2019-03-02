@@ -1,6 +1,6 @@
-const message_from = ({message="New app message!", data={}}) => {
+const message_from = ({ ok, message, data }) => {
   const header = document.createElement("h3")
-  header.innerText = message
+  header.innerText = `(${ok}) ${message}`
 
   const dataBlock = document.createElement("ul")
   Object.entries(data).reduce((ol, [key, value]) => {

@@ -8,7 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const socketManager = new SocketManager({
     "message": (message, data) => AppMessager(appMessages, data),
     "app::register": () => {
-      console.log(`registering with ${user.id}!`)
+      AppMessager(appMessages, {
+        message: `registering with ${user.id}!`,
+        ok: true,
+        data: {}
+      })
       socketManager.send("client::register", { id: user.id })
     }
   })
