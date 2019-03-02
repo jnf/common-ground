@@ -11,10 +11,6 @@ class SocketManager {
   }
 
   // use the open connection to send a message to the server
-  emit (message, data={}) {
-    this.socket.emit(message, data)
-  }
-
   send (message, data={}) {
     this.socket.send(message, data)
   }
