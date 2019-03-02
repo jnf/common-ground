@@ -8,7 +8,7 @@ import webpack from "webpack"
 import webpackConfig from "../webpack.config.dev"
 
 // who manages the managers?
-// import QuestionManager from "lib/questionManager"
+import QuestionManager from "./lib/questionManager"
 import UserManager from "./lib/userManager"
 
 // also who, uh, handles the handlers?
@@ -34,13 +34,13 @@ app.use("/public", Express.static(path.join(__dirname, "../client/public")))
 app.use(webpackMiddleware(webpack(webpackConfig), { publicPath: "/" }))
 
 // managers gonna manage
-// const questionManager = new QuestionManager
+const questionManager = new QuestionManager()
 const userManager = new UserManager()
 const controllerManager = new UserManager()
 
 // handlers gotta handle (within their namespace)
 const namespaces = {
-  control: new ControllerHandler({ controllerManager }),
+  control: new ControllerHandler({ controllerManager, questionManager }),
   client: new ClientHandler({ userManager })
 }
 
