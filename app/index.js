@@ -41,7 +41,7 @@ const controllerManager = new UserManager()
 // handlers gotta handle (within their namespace)
 const namespaces = {
   control: new ControllerHandler({ controllerManager, questionManager }),
-  client: new ClientHandler({ userManager })
+  client: new ClientHandler({ userManager, questionManager })
 }
 
 // serve the landing page for participants
