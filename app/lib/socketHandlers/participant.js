@@ -1,6 +1,6 @@
 import MessageHandler from "./message"
 
-class ClientHandler extends MessageHandler {
+class ParticipantHandler extends MessageHandler {
   register ({ id }) {
     console.log("handling incoming client", id)
     this.state.userManager.register(id)
@@ -16,4 +16,4 @@ class ClientHandler extends MessageHandler {
   }
 }
 
-export default ClientHandler
+export default ParticipantHandler

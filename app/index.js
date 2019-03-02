@@ -13,7 +13,7 @@ import UserManager from "./lib/userManager"
 
 // also who, uh, handles the handlers?
 import ControllerHandler from "./lib/socketHandlers/controller"
-import ClientHandler from "./lib/socketHandlers/client"
+import ParticipantHandler from "./lib/socketHandlers/participant"
 
 // sometimes things go wrong
 import { BWOKEN } from "./lib/bwoken"
@@ -41,7 +41,7 @@ const controllerManager = new UserManager()
 // handlers gotta handle (within their namespace)
 const namespaces = {
   control: new ControllerHandler({ controllerManager, questionManager }),
-  client: new ClientHandler({ userManager, questionManager })
+  client: new ParticipantHandler({ userManager, questionManager })
 }
 
 // serve the landing page for participants
