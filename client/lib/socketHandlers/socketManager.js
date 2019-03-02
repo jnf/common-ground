@@ -2,24 +2,23 @@ import * as io from "socket.io-client"
 
 const map = new WeakMap()
 class SocketManager {
-  constructor (messages={}) {
-    // get us a socket connection, and hold onto it
-    map.set(this, { socket: io() })
-
-    // set up messages as instance methods
-    Object.entries(messages).forEach(([message, method]) => this[message] = method)
+  constructor (concerns={}) {
+    // get us a socket connection
+    // and add concerns to state
+    map.set(this, { ...concerns, socket: io() })
 
     // set incoming messages to delegate to the defined instance methods
     this.state.socket.on("message", this.on.bind(this))
   }
 
   on (message, payload={}) {
-    console.log(`received message: "${message}" with payload ${payload}`)
+    const [_, method] = message.split("::")
+    console.log(`received message: "${method}" with payload ${Object.entries(payload)}`)
     try {
-      this[message](payload)
+      this[method](payload) // method must be defined on the subclass
     } catch (error) {
       console.error("😵", error)
-      console.table(payload)
+      console.table({ method, ...payload })
     }
   }
 
