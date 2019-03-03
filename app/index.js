@@ -35,13 +35,13 @@ app.use(webpackMiddleware(webpack(webpackConfig), { publicPath: "/" }))
 
 // managers gonna manage
 const questionManager = new QuestionManager()
-const userManager = new UserManager()
+const participantManager = new UserManager()
 const controllerManager = new UserManager()
 
 // handlers gotta handle (within their namespace)
 const namespaces = {
   control: new ControllerHandler({ controllerManager, questionManager }),
-  participant: new ParticipantHandler({ userManager, questionManager })
+  participant: new ParticipantHandler({ participantManager, questionManager })
 }
 
 // serve the landing page for participants
