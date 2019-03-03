@@ -59,8 +59,13 @@ io.on("connection", (socket) => {
     const [namespace, method] = clientMessage.split("::")
     try {
       const handler = namespaces[namespace]
-      const { result, payload } = handler.on(method, clientData, socket)
-      socket.send(result, payload)
+      const replies = handler.on(method, clientData, socket)
+      if (Array.isArray(replies)) {
+        replies.forEach(({ result, payload }) => socket.send(result, payload))
+      } else {
+        const { result, payload } = replies
+        socket.send(result, payload)
+      }
     } catch (error) {
       const { result, payload } = BWOKEN(namespace, method, error)
       socket.send(result, payload)
