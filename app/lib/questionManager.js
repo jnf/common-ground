@@ -18,7 +18,7 @@ const Questions = {
 }
 
 const map = new WeakMap()
-export default class QuestionManager {
+class QuestionManager {
   constructor (questions=Questions) {
     map.set(this, { active: "q1", questions })
   }
@@ -31,4 +31,7 @@ export default class QuestionManager {
   get active () { return map.get(this).active }
   get activeQuestion () { return map.get(this).questions[this.active] }
   get activeAnswers () { return this.activeQuestion.answers }
+  get length() { return map.get(this).questions.length }
 }
+
+export default QuestionManager
